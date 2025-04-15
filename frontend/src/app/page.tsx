@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { ValidateEmail } from './utils/ValidateEmail';
 
 /// Components ⚙️
 type InputProps = {
@@ -10,8 +11,10 @@ type InputProps = {
 };
 
 type ButtonProps = {
-  children: React.ReactNode;
+  disabled: boolean;
   className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
 };
 
 function Input({ type, onChange, placeholder }: InputProps) {
@@ -25,9 +28,13 @@ function Input({ type, onChange, placeholder }: InputProps) {
   );
 }
 
-function Button({ children, className }: ButtonProps) {
+function Button({ disabled = false, className, onClick, children }: ButtonProps) {
   return (
-    <button className={`rounded-md py-3 text-base text-white focus:outline-none ${className}`}>
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={`rounded-md py-3 text-base text-white focus:outline-none ${className}`}
+    >
       {children}
     </button>
   );
@@ -37,7 +44,8 @@ function Button({ children, className }: ButtonProps) {
 export default function Home() {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-
+  
+  const isFormValid = ValidateEmail(email) && pass !== '';
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value); };
   const handlePassChange = (e: React.ChangeEvent<HTMLInputElement>) => { setPass(e.target.value); };
 
@@ -46,14 +54,21 @@ export default function Home() {
       <h1 className="text-3xl font-bold text-center text-white m-6">
         Welcome to <br /> Project Handler
       </h1>
-      <form className="flex flex-col self-center min-w-sm min-h-24 p-8 rounded-md border-2 border-white">
+      <div className="flex flex-col self-center min-w-sm min-h-24 p-8 rounded-md border-2 border-white">
         <div className="mt-6 flex flex-col gap-4">
           <Input type="text" onChange={handleEmailChange} placeholder="Username or Email" />
           <Input type="password" onChange={handlePassChange} placeholder="Password" />
-          <Button className="bg-blue-500 hover:bg-blue-600">{email || 'Submit Email'}</Button>
-          <Button className="bg-green-500 hover:bg-green-600">{pass || 'Submit Password'}</Button>
+          <Button 
+            disabled={!isFormValid}
+            className={`bg-${isFormValid ? 'blue' : 'gray'}-500 hover:bg-${isFormValid ? 'blue-600' : 'gray-500'}`}
+            onClick={() => { 
+              console.log(isFormValid) 
+            }}
+          >
+            Login
+          </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
