@@ -1,7 +1,8 @@
 'use client';
 
+import React, { useState } from 'react';
 import Loading from './components/Loading';
-import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { ValidateEmail } from './utils/ValidateEmail';
 
 /// Components ⚙️
@@ -34,8 +35,7 @@ function Button({ disabled = false, className, onClick, children }: ButtonProps)
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`rounded-md py-3 text-base text-white focus:outline-none ${className}`}
-    >
+      className={`rounded-md py-3 text-base text-white focus:outline-none ${className}`}>
       {children}
     </button>
   );
@@ -53,13 +53,13 @@ const Form = ({ onSubmit }: FormProps) => {
 
   return (
     <div className="flex flex-col self-center min-w-sm p-8 rounded-md border-2 border-white">
-      <div className=" flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <Input type="text" onChange={handleEmailChange} placeholder="Username or Email" />
         <Input type="password" onChange={handlePassChange} placeholder="Password" />
         <Button 
           disabled={!isFormValid}
           className={`bg-${isFormValid ? 'blue' : 'gray'}-500 hover:bg-${isFormValid ? 'blue-600' : 'gray-500'}`}
-          onClick={() => { onSubmit() }}
+          onClick={onSubmit}
         >
           Login
         </Button>
@@ -68,15 +68,15 @@ const Form = ({ onSubmit }: FormProps) => {
   )
 }
 
-
 /// Default function ✅
 export default function Home() {
+  const router = useRouter();
   const [isLoading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate network request
-    setLoading(false)
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate network request
+    router.push('/dashboard');
   };
 
   return (
@@ -85,7 +85,7 @@ export default function Home() {
         Welcome to <br /> Project Handler
       </h1>
     {
-      isLoading ? ( <Loading /> ) : ( <Form onSubmit={()=> handleLogin()} /> )
+      isLoading ? ( <Loading /> ) : ( <Form onSubmit={handleLogin} /> )
     }
     </div>
   );
