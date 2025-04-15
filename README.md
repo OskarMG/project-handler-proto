@@ -6,7 +6,8 @@ A web app for managing projects and tasks, with full CRUD functionality.
 
 - ⚡️ Next.js 13+ with React
 - 🎨 Tailwind CSS for styling
-- 🌐 ReactQuery
+- 🔄 React Query for data fetching and caching
+- 📱 Fully responsive UI
 
 ## 🛠️ Getting Started
 
