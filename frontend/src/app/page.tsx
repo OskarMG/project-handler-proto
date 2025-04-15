@@ -19,26 +19,6 @@ export default function Home() {
           <Button className="bg-green-500 hover:bg-green-600">Sign In</Button>
         </div>
       </form>
-    {/*
-          <h1 className="text-3xl font-bold text-center text-white">
-        Welcome to <br /> Project Handler
-      </h1>
-      <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
-        <div className="w-full max-w-md rounded-xl bg-white p-10 shadow-xl">
-          <form className="flex flex-col gap-5">
-            <Input type="text" placeholder="Username or Email" />
-            <Input type="password" placeholder="Password" />
-            <div className="mt-6 flex flex-col gap-4">
-              <Button className="bg-blue-500 hover:bg-blue-600">Login</Button>
-              <Button className="bg-green-500 hover:bg-green-600">Sign In</Button>
-            </div>
-          </form>
-        </div>
-      </main>
-      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
-        
-      </footer>
-    */}
     </div>
   );
 }
